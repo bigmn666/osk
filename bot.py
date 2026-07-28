@@ -33,7 +33,7 @@ def send_wechat(content, summary):
     wx_url = "https://wxpusher.zjiecode.com/api/send/message"
     
     # 对应你刚才在 GitHub 里添加的三个 Secret 名字
-    app_token = os.getenv("WX_APP_TOKEN")
+    app_token = os.getenv("WXPUSHER_TOKEN")
     uid_1 = os.getenv("WX_UID_1")
     uid_2 = os.getenv("WX_UID_2")
 
