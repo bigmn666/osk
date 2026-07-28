@@ -1,4 +1,3 @@
-import os
 import requests
 
 def check_price():
@@ -8,7 +7,7 @@ def check_price():
         response = requests.get(url, timeout=10)
         data = response.json()
         
-        # 获取价格
+        # 获取价格（对应你原本的 pairs[1].priceUsd）
         pairs = data.get("pairs", [])
         if len(pairs) > 1:
             price_usd = float(pairs[1]["priceUsd"])
@@ -18,14 +17,18 @@ def check_price():
         print(f"当前获取到价格: {price_usd} USD")
         
         # 2. 条件判断与微信推送逻辑
-        if price_usd > 10:
+        # 对应你原本路由中的判断条件
+        # 3D 价格条件判断与微信推送逻辑
+        if price_usd > 100:
+            # 大于 100 时的提示
             send_wechat(
-                f"🚨 价格预警通知（高位突破）\n\n当前代币价格已升至为：{price_usd} USD，本消息来自GitHub Actions", 
+                f"🚨 价格预警通知（高位突破）\n\n当前代币价格已升至为：{price_usd} USD，本消息来自mac-docker", 
                 f"🚨🚨🚨 当前价格:{price_usd}🚨价格升至 100 以上🚨🚨🚨"
             )
-        elif price_usd < 50:
+        elif price_usd < 40:
+            # 小于 40 时的提示
             send_wechat(
-                f"⚠️ 价格预警通知（跌破警戒线）\n\n当前代币价格已跌至：{price_usd} USD，本消息来自GitHub Actions", 
+                f"⚠️ 价格预警通知（跌破警戒线）\n\n当前代币价格已跌至：{price_usd} USD本消息来自mac-docker", 
                 f"⚠️⚠️⚠️ 当前价格: {price_usd} 跌至 40 以下 ⚠️⚠️⚠️"
             )
             
@@ -33,19 +36,17 @@ def check_price():
         print(f"请求出错: {e}")
 
 def send_wechat(content, summary):
+    # WxPusher 推送接口
     wx_url = "https://wxpusher.zjiecode.com/api/send/message"
-    
-    # 从 GitHub Secrets 环境变量中读取配置
-    app_token = os.getenv("WX_APP_TOKEN")
-    uid_1 = os.getenv("WX_UID_1")
-    uid_2 = os.getenv("WX_UID_2")
-
     payload = {
-        "appToken": app_token,
+        "appToken": "AT_hylyDyyClQYRQAiPqlZgN6H5bWv6txJX",
         "content": content,
         "summary": summary,
         "contentType": 1,
-        "uids": [uid_1, uid_2]
+        "uids": [
+            "UID_SkGWz0MxDpsC7x83MEknBFx8GXzk",
+            "UID_Le64zRgq2tEO64GQgkkMiK5A0mWP"
+        ]
     }
     res = requests.post(wx_url, json=payload)
     print("微信推送结果:", res.text)
