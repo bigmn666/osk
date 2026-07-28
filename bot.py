@@ -20,7 +20,7 @@ def check_price():
                 f"🚨 价格预警通知（高位突破）\n\n当前代币价格已升至为：{price_usd} USD，本消息来自GitHub Actions", 
                 f"🚨🚨🚨 当前价格:{price_usd}🚨价格升至 100 以上🚨🚨🚨"
             )
-        elif price_usd < 40:
+        elif price_usd < 50:
             send_wechat(
                 f"⚠️ 价格预警通知（跌破警戒线）\n\n当前代币价格已跌至：{price_usd} USD本消息来自GitHub Actions", 
                 f"⚠️⚠️⚠️ 当前价格: {price_usd} 跌至 40 以下 ⚠️⚠️⚠️"
