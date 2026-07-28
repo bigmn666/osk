@@ -15,16 +15,21 @@ def check_price():
             
         print(f"当前获取到价格: {price_usd} USD")
         
+        # 价格高于 100 时发送高位预警
         if price_usd > 100:
             send_wechat(
-                f"🚨 价格预警通知（高位突破）\n\n当前代币价格已升至为：{price_usd} USD，本消息来自GitHub Actions", 
-                f"🚨🚨🚨 当前价格:{price_usd}🚨价格升至 100 以上🚨🚨🚨"
+                f"🚨 价格预警通知（高位突破）\n\n当前代币价格已升至：{price_usd} USD，本消息来自GitHub Actions", 
+                f"🚨🚨🚨 当前价格: {price_usd} 升至 100 以上 🚨🚨🚨"
             )
+        # 价格低于 50 时发送低位预警
         elif price_usd < 50:
             send_wechat(
-                f"⚠️ 价格预警通知（跌破警戒线）\n\n当前代币价格已跌至：{price_usd} USD本消息来自GitHub Actions", 
-                f"⚠️⚠️⚠️ 当前价格: {price_usd} 跌至 40 以下 ⚠️⚠️⚠️"
+                f"⚠️ 价格预警通知（跌破警戒线）\n\n当前代币价格已跌至：{price_usd} USD，本消息来自GitHub Actions", 
+                f"⚠️⚠️⚠️ 当前价格: {price_usd} 跌至 50 以下 ⚠️⚠️⚠️"
             )
+        # 价格在 50 到 100 之间时保持静默，仅打印日志
+        else:
+            print(f"当前价格 {price_usd} USD 处于正常区间 (50 - 100)，不发送通知。")
             
     except Exception as e:
         print(f"请求出错: {e}")
@@ -32,7 +37,6 @@ def check_price():
 def send_wechat(content, summary):
     wx_url = "https://wxpusher.zjiecode.com/api/send/message"
     
-    # 对应你刚才在 GitHub 里添加的三个 Secret 名字
     app_token = os.getenv("WXPUSHER_TOKEN")
     uid_1 = os.getenv("WX_UID_1")
     uid_2 = os.getenv("WX_UID_2")
