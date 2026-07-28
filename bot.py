@@ -15,15 +15,11 @@ def check_price():
             
         print(f"当前获取到价格: {price_usd} USD")
         
-        if price_usd > 10:
+        # 测试期间：只要价格大于 0 就必定会发一条微信，用来验证推送通不通
+        if price_usd > 0:
             send_wechat(
-                f"🚨 价格预警通知（高位突破）\n\n当前代币价格已升至为：{price_usd} USD，本消息来自GitHub Actions", 
-                f"🚨🚨🚨 当前价格:{price_usd}🚨价格升至 100 以上🚨🚨🚨"
-            )
-        elif price_usd < 50:
-            send_wechat(
-                f"⚠️ 价格预警通知（跌破警戒线）\n\n当前代币价格已跌至：{price_usd} USD本消息来自GitHub Actions", 
-                f"⚠️⚠️⚠️ 当前价格: {price_usd} 跌至 40 以下 ⚠️⚠️⚠️"
+                f"🚨 价格测试通知\n\n当前代币价格为：{price_usd} USD，本消息来自GitHub Actions", 
+                f"🚨 当前价格测试:{price_usd}"
             )
             
     except Exception as e:
@@ -32,8 +28,8 @@ def check_price():
 def send_wechat(content, summary):
     wx_url = "https://wxpusher.zjiecode.com/api/send/message"
     
-    # 对应你刚才在 GitHub 里添加的三个 Secret 名字
-    app_token = os.getenv("WxPusher_TOKEN")
+    # 严格对应你在 GitHub 里添加的 Secret 名字（全大写 WXPUSHER_TOKEN）
+    app_token = os.getenv("WXPUSHER_TOKEN")
     uid_1 = os.getenv("WX_UID_1")
     uid_2 = os.getenv("WX_UID_2")
 
