@@ -23,7 +23,7 @@ jobs:
 
       - name: Run bot.py
         env:
-          WX_APP_TOKEN: ${{ secrets.WX_APP_TOKEN }}
+          WX_APP_TOKEN: ${{ secrets.WXPUSHER_TOKEN }}
           WX_UID_1: ${{ secrets.WX_UID_1 }}
           WX_UID_2: ${{ secrets.WX_UID_2 }}
         run: |
