@@ -15,11 +15,11 @@ def check_price():
             
         print(f"当前获取到价格: {price_usd} USD")
         
-        # 价格高于 100 时发送高位预警
+        # 价格高于 70 时发送高位预警
         if price_usd > 70:
             send_wechat(
                 f"🚨 价格预警通知（高位突破）\n\n当前代币价格已升至：{price_usd} USD，本消息来自GitHub Actions", 
-                f"🚨🚨🚨 当前价格: {price_usd} 升至 100 以上 🚨🚨🚨"
+                f"🚨🚨🚨 当前价格: {price_usd} 升至 70 以上 🚨🚨🚨"
             )
         # 价格低于 38 时发送低位预警
         elif price_usd < 38:
@@ -27,9 +27,9 @@ def check_price():
                 f"⚠️ 价格预警通知（跌破警戒线）\n\n当前代币价格已跌至：{price_usd} USD，本消息来自GitHub Actions", 
                 f"⚠️⚠️⚠️ 当前价格: {price_usd} 跌至 38 以下 ⚠️⚠️⚠️"
             )
-        # 价格在 38 到 100 之间时保持静默，仅打印日志
+        # 价格在 38 到 70 之间时保持静默，仅打印日志
         else:
-            print(f"当前价格 {price_usd} USD 处于正常区间 (38 - 100)，不发送通知。")
+            print(f"当前价格 {price_usd} USD 处于正常区间 (38 - 70)，不发送通知。")
             
     except Exception as e:
         print(f"请求出错: {e}")
