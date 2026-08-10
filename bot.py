@@ -16,7 +16,7 @@ def check_price():
         print(f"当前获取到价格: {price_usd} USD")
         
         # 价格高于 100 时发送高位预警
-        if price_usd > 100:
+        if price_usd > 70:
             send_wechat(
                 f"🚨 价格预警通知（高位突破）\n\n当前代币价格已升至：{price_usd} USD，本消息来自GitHub Actions", 
                 f"🚨🚨🚨 当前价格: {price_usd} 升至 100 以上 🚨🚨🚨"
