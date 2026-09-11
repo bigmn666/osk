@@ -2,7 +2,7 @@ import os
 import requests
 
 def check_price():
-    url = "https://api.dexscreener.com/latest/dex/pairs/bsc/0x5a4bbfa871f6cacb80cfffcb04d63f6366c7cb5f"
+    url = "https://api.dexscreener.com/latest/dex/tokens/0xf2179e3ce2c20bd66989bc75a94df19983c22673"
     try:
         response = requests.get(url, timeout=10)
         data = response.json()
